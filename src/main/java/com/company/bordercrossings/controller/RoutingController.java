@@ -9,7 +9,7 @@ import reactor.core.publisher.Mono;
 
 @RestController
 public class RoutingController {
-    private CountryRepository countryRepository;
+    final private CountryRepository countryRepository;
 
     public RoutingController(CountryRepository countryRepository) {
         this.countryRepository = countryRepository;
@@ -19,7 +19,6 @@ public class RoutingController {
     public Mono<BorderCrossing> getRoute(@PathVariable String origin, @PathVariable String destination){
         return countryRepository.queryBorderCrossing(origin, destination);
     }
-
 
     @ResponseStatus(
             value = HttpStatus.BAD_REQUEST,

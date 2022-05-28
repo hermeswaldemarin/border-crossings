@@ -24,7 +24,7 @@ public class CountryTest {
         Country c1 = createCountry();
         Country c2 = createCountry();
 
-        assertTrue(c1.equals(c2));
+        assertEquals(c1, c2);
         assertEquals(c1, c2);
         assertEquals(c1.hashCode(), c2.hashCode());
     }

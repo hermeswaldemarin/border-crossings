@@ -5,6 +5,7 @@ to run unit tests the docker deamon need to be runing and the port 27017 should 
 # Running Locally
 
 You need to be with mongodb running on localhost 27017
+You need to be with redis running on localhost 6379
 
 Run this scripts to load data to collection
 

@@ -1,7 +1,9 @@
 package com.company.bordercrossings.repository;
 
+import com.company.bordercrossings.BorderCrossingsApplication;
+import com.company.bordercrossings.configuration.RedisProperties;
+import com.company.bordercrossings.configuration.TestRedisConfiguration;
 import com.company.bordercrossings.domain.BorderCrossing;
-import com.company.bordercrossings.domain.Country;
 import com.company.bordercrossings.infrastructure.CountryRepository;
 import com.company.bordercrossings.infrastructure.exception.NoLandingCrossesException;
 import org.junit.jupiter.api.AfterAll;
@@ -11,13 +13,11 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration;
-import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.testcontainers.containers.Container;
 import org.testcontainers.containers.MongoDBContainer;
 import org.testcontainers.utility.DockerImageName;
 import org.testcontainers.utility.MountableFile;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
@@ -25,7 +25,8 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DataMongoTest(excludeAutoConfiguration = EmbeddedMongoAutoConfiguration.class)
+//@DataMongoTest(excludeAutoConfiguration = EmbeddedMongoAutoConfiguration.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = {BorderCrossingsApplication.class, TestRedisConfiguration.class, RedisProperties.class})
 public class CountryRepositoryTest {
 
     private static final Logger logger = LoggerFactory.getLogger(CountryRepositoryTest.class);
@@ -57,6 +58,7 @@ public class CountryRepositoryTest {
         BorderCrossing borderCrossing = result.block();
 
         assertThat(result).isNotNull();
+        assertThat(borderCrossing).isNotNull();
         assertThat(borderCrossing.route().get(0)).isEqualTo("CZE");
         assertThat(borderCrossing.route().get(1)).isEqualTo("AUT");
         assertThat(borderCrossing.route().get(2)).isEqualTo("ITA");
@@ -67,9 +69,7 @@ public class CountryRepositoryTest {
     public void shouldQueryBorderCrossingNotReturnItens(){
         Mono<BorderCrossing> result = countryRepository.queryBorderCrossing("XYZ", "ZZA");
 
-        Assertions.assertThrows(NoLandingCrossesException.class, () -> {
-            BorderCrossing borderCrossing = result.block();
-        });
+        Assertions.assertThrows(NoLandingCrossesException.class, result::block);
 
     }
 

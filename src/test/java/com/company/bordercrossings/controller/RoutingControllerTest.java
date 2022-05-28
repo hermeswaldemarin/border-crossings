@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.redis.core.ReactiveHashOperations;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
@@ -19,10 +20,13 @@ import static org.mockito.BDDMockito.given;
 @WebFluxTest
 public class RoutingControllerTest {
 
-    private static Logger logger = LoggerFactory.getLogger(RoutingControllerTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(RoutingControllerTest.class);
 
     @MockBean
     private CountryRepository countryRepository;
+
+    @MockBean
+    private ReactiveHashOperations<String, String, BorderCrossing> hashOperations;
 
     @Autowired
     private WebTestClient webTestClient;
@@ -49,8 +53,6 @@ public class RoutingControllerTest {
 
     @Test
     public void testGet_route_returns400(){
-
-        BorderCrossing borderCrossing = new BorderCrossing(Arrays.asList("CZE", "AUT", "ITA"));
 
         given(countryRepository.queryBorderCrossing("XXX", "YYY")).willReturn(Mono.error(new NoLandingCrossesException()));
 
