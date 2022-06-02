@@ -1,7 +1,5 @@
 # Getting Started 
 
-to run unit tests the docker deamon need to be runing and the port 27017 should not to be in use.
-
 # Running Locally
 
 ```shell
