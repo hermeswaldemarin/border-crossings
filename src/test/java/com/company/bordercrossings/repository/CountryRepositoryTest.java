@@ -1,7 +1,7 @@
 package com.company.bordercrossings.repository;
 
 import com.company.bordercrossings.BorderCrossingsApplication;
-import com.company.bordercrossings.configuration.RedisProperties;
+import com.company.bordercrossings.infrastructure.configuration.RedisProperties;
 import com.company.bordercrossings.configuration.TestRedisConfiguration;
 import com.company.bordercrossings.domain.BorderCrossing;
 import com.company.bordercrossings.infrastructure.CountryRepository;
@@ -59,9 +59,9 @@ public class CountryRepositoryTest {
 
         assertThat(result).isNotNull();
         assertThat(borderCrossing).isNotNull();
-        assertThat(borderCrossing.route().get(0)).isEqualTo("CZE");
-        assertThat(borderCrossing.route().get(1)).isEqualTo("AUT");
-        assertThat(borderCrossing.route().get(2)).isEqualTo("ITA");
+        assertThat(borderCrossing.getRoute().get(0)).isEqualTo("CZE");
+        assertThat(borderCrossing.getRoute().get(1)).isEqualTo("AUT");
+        assertThat(borderCrossing.getRoute().get(2)).isEqualTo("ITA");
 
     }
 

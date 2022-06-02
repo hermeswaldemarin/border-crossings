@@ -1,4 +1,4 @@
-package com.company.bordercrossings.configuration;
+package com.company.bordercrossings.infrastructure.configuration;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;

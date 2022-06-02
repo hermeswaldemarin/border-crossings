@@ -16,16 +16,14 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 public class RedisConfig {
 
     @Bean
-    public LettuceConnectionFactory redisConnectionFactory() {
-        LettuceConnectionFactory lcf = new LettuceConnectionFactory();
-        lcf.afterPropertiesSet();
-        return lcf;
+    public ReactiveRedisConnectionFactory reactiveRedisConnectionFactory(RedisProperties properties) {
+        return new LettuceConnectionFactory(properties.getRedisHost(), properties.getRedisPort());
     }
 
     @Bean
-    public ReactiveHashOperations<String, String, BorderCrossing> hashOperations(ReactiveRedisConnectionFactory redisConnectionFactory){
+    public ReactiveHashOperations<String, String, BorderCrossing> hashOperations(ReactiveRedisConnectionFactory reactiveRedisConnectionFactory){
         var template = new ReactiveRedisTemplate<>(
-                redisConnectionFactory,
+                reactiveRedisConnectionFactory,
                 RedisSerializationContext.<String, BorderCrossing>newSerializationContext(new StringRedisSerializer())
                                          .hashKey(new GenericToStringSerializer<>(String.class))
                                          .hashValue(new Jackson2JsonRedisSerializer<>(BorderCrossing.class))

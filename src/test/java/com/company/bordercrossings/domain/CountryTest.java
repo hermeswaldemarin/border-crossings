@@ -34,14 +34,14 @@ public class CountryTest {
         Country c1 = createCountry();
         logger.info(c1.toString());
 
-        assertEquals("Country[cca3=GRU, borders=[ARG, PER]]",
+        assertEquals("Country(cca3=GRU, borders=[ARG, PER])",
                 c1.toString());
     }
 
     @Test
     public void accessorTest() {
         Country c1 = createCountry();
-        assertEquals("GRU", c1.cca3());
+        assertEquals("GRU", c1.getCca3());
     }
 
 }

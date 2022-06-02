@@ -1,9 +1,17 @@
 package com.company.bordercrossings.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.ToString;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
 @Document(collection = "country")
-public record Country(String cca3, List<String> borders) {
+@Data
+@AllArgsConstructor
+@ToString
+public class Country {
+    private String cca3;
+    private List<String> borders;
 }

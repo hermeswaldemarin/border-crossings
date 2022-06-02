@@ -57,7 +57,7 @@ public class BorderCrossingRepositoryImpl implements BorderCrossingRepository {
                     List<String> completeRoute = Stream.concat(
                                     Stream.of(origin),
                                     Stream.concat(
-                                            ws.borders().stream(),
+                                            ws.getBorders().stream(),
                                             Stream.of(destination)
                                     )
                             )

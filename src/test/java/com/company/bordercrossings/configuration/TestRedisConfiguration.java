@@ -1,5 +1,6 @@
 package com.company.bordercrossings.configuration;
 
+import com.company.bordercrossings.infrastructure.configuration.RedisProperties;
 import org.springframework.boot.test.context.TestConfiguration;
 import redis.embedded.RedisServer;
 
